@@ -256,8 +256,7 @@ Demonstrates systems programming awareness and CPU Cache Line efficiency.
 block-beta
     columns 8
     block:header:8
-        %% Description
-        "std::array<std::unique_ptr<Kline>, 8>"
+        Title["std::array (std::unique_ptr(Kline), 8)"]
     end
     
     %% Array addresses
