@@ -2,8 +2,13 @@
 #include "analysis/MeanFactoryKline.h"
 #include "analysis/ModeFactoryKline.h"
 #include "analysis/MedianFactoryKline.h"
+#include "analysis/StdDevFactoryKline.h"
 #include <iostream>
 #include <thread>
+
+StdDevResult PipelineKline::StdDevFactory(const Window<Kline>& window) {
+    return StdDevFactoryKline::compute(window);
+}
 
 MedianResult PipelineKline::MedianFactory(const Window<Kline>& window) {
     return MedianFactoryKline::compute(window);
@@ -21,6 +26,7 @@ void PipelineKline::runPipeline(const Window<Kline>& window) {
     MeanResult result;
     ModeResult mode_result;
     MedianResult median_result;
+    StdDevResult stddev_result;
 
     // Launch MeanFactory execution in a dedicated thread
     std::thread factoryThread([&window, &result]() {
@@ -37,6 +43,11 @@ void PipelineKline::runPipeline(const Window<Kline>& window) {
         median_result = PipelineKline::MedianFactory(window);
     });
 
+    // Launch StdDevFactory execution in a dedicated thread
+    std::thread stddevFactoryThread([&window, &stddev_result]() {
+        stddev_result = PipelineKline::StdDevFactory(window);
+    });
+
     // Wait for the factory threads to complete
     if (factoryThread.joinable()) {
         factoryThread.join();
@@ -50,8 +61,13 @@ void PipelineKline::runPipeline(const Window<Kline>& window) {
         medianFactoryThread.join();
     }
 
+    if (stddevFactoryThread.joinable()) {
+        stddevFactoryThread.join();
+    }
+
     // Print the result after synchronization
     result.print();
     mode_result.print();
     median_result.print();
+    stddev_result.print();
 }

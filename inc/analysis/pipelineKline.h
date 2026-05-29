@@ -5,9 +5,11 @@
 #include "analysis/MeanResult.h"
 #include "analysis/ModeResult.h"
 #include "analysis/MedianResult.h"
+#include "analysis/StdDevResult.h"
 
 class PipelineKline {
 public:
+    static StdDevResult StdDevFactory(const Window<Kline>& window);
     static MedianResult MedianFactory(const Window<Kline>& window);
     static ModeResult ModeFactory(const Window<Kline>& window);
 
