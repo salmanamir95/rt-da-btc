@@ -1,11 +1,9 @@
 #include "cache/memory/memoryManager.h"
 
 void MemoryManager::is_allowed_to_pop(uint8_t event_id) {
-    while (lane_states[event_id].load(std::memory_order_acquire) == 1) {
-        #if defined(__x86_64__) || defined(_M_X64)
-        __builtin_ia32_pause();
-        #endif
-    }
+    // The Cache thread is explicitly ALLOWED to pop the next item from the network queue
+    // while the Analytics engine is running (State 1), so we do NOT block here anymore.
+    // The cache thread will only block when it tries to PUSH the new item (at State 2).
 }
 
 void MemoryManager::is_allowed_to_push(uint8_t event_id) {
