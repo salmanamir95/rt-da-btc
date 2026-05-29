@@ -163,6 +163,14 @@ ModeResult ModeFactoryKline::compute(const Window<Kline>& window) {
             thread.join();
         }
     }
-
+    if (window.c7()) result.time = window.c7()->closeTime;
+    else if (window.c6()) result.time = window.c6()->closeTime;
+    else if (window.c5()) result.time = window.c5()->closeTime;
+    else if (window.c4()) result.time = window.c4()->closeTime;
+    else if (window.c3()) result.time = window.c3()->closeTime;
+    else if (window.c2()) result.time = window.c2()->closeTime;
+    else if (window.c1()) result.time = window.c1()->closeTime;
+    else if (window.c0()) result.time = window.c0()->closeTime;
+    else result.time = 0; // Dummy time for now
     return result;
 }
