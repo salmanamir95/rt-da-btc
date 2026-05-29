@@ -204,14 +204,14 @@ MeanResult MeanFactoryKline::compute(const Window<Kline>& window) {
     if (tVol.joinable()) tVol.join();
 
 
-    if (window.c7()) res.time = window.c7()->startTime;
-    else if (window.c6()) res.time = window.c6()->startTime;
-    else if (window.c5()) res.time = window.c5()->startTime;
-    else if (window.c4()) res.time = window.c4()->startTime;
-    else if (window.c3()) res.time = window.c3()->startTime;
-    else if (window.c2()) res.time = window.c2()->startTime;
-    else if (window.c1()) res.time = window.c1()->startTime;
-    else if (window.c0()) res.time = window.c0()->startTime;
+    if (window.c7()) res.time = window.c7()->closeTime;
+    else if (window.c6()) res.time = window.c6()->closeTime;
+    else if (window.c5()) res.time = window.c5()->closeTime;
+    else if (window.c4()) res.time = window.c4()->closeTime;
+    else if (window.c3()) res.time = window.c3()->closeTime;
+    else if (window.c2()) res.time = window.c2()->closeTime;
+    else if (window.c1()) res.time = window.c1()->closeTime;
+    else if (window.c0()) res.time = window.c0()->closeTime;
     else res.time = 0; // Dummy time for now
     
     return res;
