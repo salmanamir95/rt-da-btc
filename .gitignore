@@ -1,0 +1,95 @@
+# ====================================================================
+# Compilers & Build Artifacts
+# ====================================================================
+# Prereqs
+*.d
+*.dwo
+*.o
+*.obj
+
+# Compiled Dynamic Libraries
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# Compiled Static Libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Common build directories (CMake, Make, Ninja, Meson)
+[Bb]uild/
+[Bb]in/
+[Oo]bj/
+CMakeCache.txt
+CMakeFiles/
+CMakeCheckOutputs/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# ====================================================================
+# IDEs and Text Editors
+# ====================================================================
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# CLion / JetBrains
+.idea/
+*.iws
+
+# Visual Studio (MSVC)
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.db
+*.opendb
+
+# Core dumps and temporary files
+*~
+*.swp
+*.swo
+.DS_Store
+
+# ====================================================================
+# Project Specific & Data Storage (Databases, Docs, Environment)
+# ====================================================================
+# Local configuration or private environment variables
+*.env
+*.local
+
+# Time-series databases, logs, and feature matrices
+*.db
+*.log
+data/
+influxdb_data/
+logs/
+
+# Doxygen documentation output
+html/
+latex/
+
+# ====================================================================
+# Git Safeties (Do not track git internals or backup files)
+# ====================================================================
+# Just in case there are nested git or patch artifacts
+*.orig
+*.rej
+.venv
+v
+./venv
+.env
