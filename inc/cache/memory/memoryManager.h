@@ -1,6 +1,6 @@
 #pragma once
 
-#include "analysis/memory/window.h"
+#include "cache/memory/window.h"
 #include "kline.h" 
 #include "EventMeta.h"
 #include <memory>
