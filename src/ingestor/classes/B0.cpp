@@ -15,9 +15,6 @@ B0::B0(const nlohmann::json& payload) : EventMeta(EventID::BO) {
     }
 }
 
-void B0::process() {
-    std::cout << "[B0] Processing fallback event type: " << eventType << std::endl;
-}
 void B0::print() const {
     std::cout << "B0 Event: " << symbol 
               << " | Timestamp: " << timestamp 

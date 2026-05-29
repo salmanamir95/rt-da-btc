@@ -23,20 +23,6 @@ Kline::Kline(const nlohmann::json& payload) : EventMeta(EventID::KLINE) {
     this->volume     = std::stod(k["v"].get<std::string>());
 }
 
-void Kline::process() {
-    // The data is baked into this object instance. 
-    // Now you pass it along to your engine or run calculations!
-    std::cout << "[" << symbol << "] Current streaming price: " << closePrice;
-    
-    if (isClosed) {
-        std::cout << " -> Candle Closed! Sending to Indicators pipeline.";
-        // Run indicators, trigger alerts, etc.
-    } else {
-        std::cout << " (Live updating...)";
-    }
-    std::cout << std::endl;
-}
-
 void Kline::print() const {
     std::cout << "Kline Event: " << symbol 
               << " | Open: " << openPrice 

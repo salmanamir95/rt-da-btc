@@ -19,6 +19,5 @@ public:
     // Takes the whole chunk of data at birth
     Kline(const nlohmann::json& payload);
 
-    void process() override;
     void print() const override;
 };

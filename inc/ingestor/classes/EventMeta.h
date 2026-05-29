@@ -18,7 +18,7 @@ public:
     // Virtual destructor
     virtual ~EventMeta() = default;
     
-    virtual void process() = 0; 
+
     virtual void print() const = 0;
     
 };
