@@ -24,17 +24,4 @@ Kline::Kline(const nlohmann::json& payload) : EventMeta(EventID::KLINE) {
 }
 
 void Kline::print() const {
-    std::cout << "Kline Event: " << symbol 
-              << " | Open: " << openPrice 
-              << " | High: " << highPrice 
-              << " | Low: " << lowPrice 
-              << " | Close: " << closePrice 
-              << " | Vol: " << volume 
-              << " | Closed: " << (isClosed ? "YES" : "NO") 
-              << " | Timestamp: " << timestamp 
-              << " | Event Type: " << eventType 
-              << " | Start Time: " << startTime 
-              << " | End Time: " << closeTime 
-              << " | Interval: " << interval 
-              << std::endl;
 }   

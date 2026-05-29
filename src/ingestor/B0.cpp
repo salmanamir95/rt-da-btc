@@ -16,7 +16,4 @@ B0::B0(const nlohmann::json& payload) : EventMeta(EventID::BO) {
 }
 
 void B0::print() const {
-    std::cout << "B0 Event: " << symbol 
-              << " | Timestamp: " << timestamp 
-              << " | Event Type: " << eventType << std::endl;
 }

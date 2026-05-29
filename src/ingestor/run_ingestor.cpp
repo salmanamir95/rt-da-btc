@@ -33,8 +33,6 @@ void run_ingestor(std::string url, EventQueue& queue)
         {
             if (msg->type == ix::WebSocketMessageType::Open)
             {
-                std::cout << "[+] Handshake OK! Direct Raw Pipeline Established." << std::endl;
-                std::cout << "[+] Streaming real-time 1-Minute updates..." << std::endl;
             }
             else if (msg->type == ix::WebSocketMessageType::Message)
             {
@@ -67,11 +65,9 @@ void run_ingestor(std::string url, EventQueue& queue)
             }
             else if (msg->type == ix::WebSocketMessageType::Close)
             {
-                std::cout << "[-] Disconnected: " << msg->closeInfo.reason << std::endl;
             }
         });
 
-    std::cout << "[+] Launching Live Ingestor..." << std::endl;
     ws.start();
 
     // Main execution keep-alive loop
