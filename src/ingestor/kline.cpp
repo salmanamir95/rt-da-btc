@@ -1,5 +1,5 @@
 // Kline.cpp
-#include "kline.h"
+#include "ingestor/kline.h"
 #include <iostream>
 
 Kline::Kline(const nlohmann::json& payload) : EventMeta(EventID::KLINE) {

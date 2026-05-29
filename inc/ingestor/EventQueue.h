@@ -5,7 +5,7 @@
 #include <memory>
 #include <condition_variable>
 
-#include "EventMeta.h"
+#include "ingestor/EventMeta.h"
 
 class EventQueue {
 private:

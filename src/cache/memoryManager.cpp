@@ -1,4 +1,4 @@
-#include "cache/memory/memoryManager.h"
+#include "cache/memoryManager.h"
 
 void MemoryManager::is_allowed_to_pop(uint8_t event_id) {
     // The Cache thread is explicitly ALLOWED to pop the next item from the network queue

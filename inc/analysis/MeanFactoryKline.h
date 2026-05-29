@@ -1,7 +1,7 @@
 #pragma once
 
-#include "cache/memory/window.h"
-#include "kline.h"
+#include "cache/window.h"
+#include "ingestor/kline.h"
 #include "analysis/MeanResult.h"
 #include <thread>
 

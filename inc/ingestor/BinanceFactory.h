@@ -3,9 +3,9 @@
 
 #include <memory>
 #include <nlohmann/json.hpp>
-#include "EventMeta.h"
-#include "kline.h"
-#include "B0.h"
+#include "ingestor/EventMeta.h"
+#include "ingestor/kline.h"
+#include "ingestor/B0.h"
 
 class BinanceFactory {
 public:

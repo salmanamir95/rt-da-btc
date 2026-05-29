@@ -9,10 +9,10 @@
 #include <nlohmann/json.hpp>
 
 // Include your object architecture headers here
-#include "EventMeta.h"
-#include "BinanceFactory.h"
+#include "ingestor/EventMeta.h"
+#include "ingestor/BinanceFactory.h"
 
-#include "run_ingestor.h"
+#include "ingestor/run_ingestor.h"
 
 using json = nlohmann::json;
 

@@ -1,6 +1,6 @@
-#include "run_ingestor.h"
-#include "EventQueue.h"
-#include "run_cache.h"
+#include "ingestor/run_ingestor.h"
+#include "ingestor/EventQueue.h"
+#include "cache/run_cache.h"
 #include "analysis/IngressAnalytics.h"
 #include <thread>
 

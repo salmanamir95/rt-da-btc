@@ -25,7 +25,6 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 # Include directories
 target_include_directories(${PROJECT_NAME} PRIVATE 
     inc
-    inc/ingestor/classes
 )
 
 # Link libraries

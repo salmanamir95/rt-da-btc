@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cache/memory/memoryManager.h"
+#include "cache/memoryManager.h"
 #include <thread>
 
 class IngressAnalytics{

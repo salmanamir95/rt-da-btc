@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EventMeta.h"
+#include "ingestor/EventMeta.h"
 #include <array>
 #include <memory>
 #include <utility>

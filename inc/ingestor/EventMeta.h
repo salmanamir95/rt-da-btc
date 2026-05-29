@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 #include <iostream>
-#include "EventTypes.h"
+#include "ingestor/EventTypes.h"
 
 class EventMeta {
 public:

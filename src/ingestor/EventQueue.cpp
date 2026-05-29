@@ -1,4 +1,4 @@
-#include "EventQueue.h"
+#include "ingestor/EventQueue.h"
 
 void EventQueue::push(std::unique_ptr<EventMeta> event) {
     if (!event) return;

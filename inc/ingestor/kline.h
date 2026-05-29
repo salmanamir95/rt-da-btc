@@ -1,6 +1,6 @@
 // Kline.h
 #pragma once
-#include "EventMeta.h"
+#include "ingestor/EventMeta.h"
 #include <nlohmann/json.hpp>
 
 class Kline : public EventMeta {

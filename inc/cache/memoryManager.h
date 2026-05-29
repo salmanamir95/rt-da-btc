@@ -1,8 +1,8 @@
 #pragma once
 
-#include "cache/memory/window.h"
-#include "kline.h" 
-#include "EventMeta.h"
+#include "cache/window.h"
+#include "ingestor/kline.h" 
+#include "ingestor/EventMeta.h"
 #include <memory>
 #include <atomic>
 #include <iostream>
