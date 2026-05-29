@@ -1,4 +1,5 @@
 #include "analysis/IngressAnalytics.h"
+#include "analysis/pipelineKline.h"
 #include <iostream>
 
 void IngressAnalytics::run_pipeline_kline(){
@@ -9,7 +10,7 @@ void IngressAnalytics::run_pipeline_kline(){
         memory.is_allowed_analytics(EventID::KLINE);
 
         // 2. Trigger your multidimensional math thread joins
-        //PipelineKline::runPipeline(memory.get_kline_window());
+        PipelineKline::runPipeline(memory.get_kline_window());
 
         // 3. Calculations done, release the lock on the KLINE lane
         memory.give_permission_to_proceed(EventID::KLINE);
