@@ -46,9 +46,8 @@ void run_ingestor(std::string url, EventQueue& queue)
                     // 2. Feed it to the Factory to construct the specialized class instance
                     std::unique_ptr<EventMeta> event = BinanceFactory::createEvent(jsonPayload);
 
-                    // 3. Polymorphic execution! Triggers specialized logic depending on if it's Kline or B0
+                    // 3. Push it directly to the Queue!
                     if (event) {
-                        event->process();
                         queue.push(std::move(event));
                     }
                     

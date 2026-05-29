@@ -1,9 +1,10 @@
 #include "run_ingestor.h"
 #include "EventQueue.h"
 #include "run_cache.h"
+#include "analysis/IngressAnalytics.h"
 #include <thread>
 
-void InitAnalytics(const MemoryManager& mem){
+void InitAnalytics(MemoryManager& mem){
     IngressAnalytics analytics(mem);
 }
 

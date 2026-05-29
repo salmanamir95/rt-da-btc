@@ -6,7 +6,7 @@
 class IngressAnalytics{
     MemoryManager& memory;
     public:
-        IngressAnalytics(MemoryManager& memory)
+        IngressAnalytics(MemoryManager& memory);
 
         void run_pipeline_kline();
         void run_pipeline_bo();

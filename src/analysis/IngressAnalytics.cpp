@@ -1,4 +1,4 @@
-#include "IngressAnalytics.h"
+#include "analysis/IngressAnalytics.h"
 #include <iostream>
 
 void IngressAnalytics::run_pipeline_kline(){
@@ -6,19 +6,19 @@ void IngressAnalytics::run_pipeline_kline(){
     while (true)
     {
 
-        manager.is_allowed_analytics(EventID::KLINE);
+        memory.is_allowed_analytics(EventID::KLINE);
 
         // 2. Trigger your multidimensional math thread joins
-        //PipelineKline::runPipeline(manager.get_kline_window());
+        //PipelineKline::runPipeline(memory.get_kline_window());
 
         // 3. Calculations done, release the lock on the KLINE lane
-        manager.give_permission_to_proceed(EventID::KLINE);
+        memory.give_permission_to_proceed(EventID::KLINE);
         
     }
 }
 
 IngressAnalytics::IngressAnalytics(MemoryManager& memory) : memory(memory) {
-    std::thread pipeKline(run_pipeline_kline());
+    std::thread pipeKline(&IngressAnalytics::run_pipeline_kline, this);
     if (pipeKline.joinable()) {
         pipeKline.join();
     }
