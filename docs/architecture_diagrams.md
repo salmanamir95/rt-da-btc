@@ -82,19 +82,29 @@ classDiagram
 
     class PipelineKline {
         +MeanFactory(Window~Kline~& window)$ MeanResult
+        +ModeFactory(Window~Kline~& window)$ ModeResult
+        +MedianFactory(Window~Kline~& window)$ MedianResult
+        +StdDevFactory(Window~Kline~& window)$ StdDevResult
         +runPipeline(Window~Kline~& window)$ void
     }
     
     class MeanFactoryKline {
         +compute(Window~Kline~& window)$ MeanResult
-        -calcMeanOP(Window~Kline~, double&)$ void
-        -calcMeanCP(Window~Kline~, double&)$ void
-        -calcMeanHP(Window~Kline~, double&)$ void
-        -calcMeanLP(Window~Kline~, double&)$ void
-        -calcMeanVol(Window~Kline~, double&)$ void
+    }
+    class ModeFactoryKline {
+        +compute(Window~Kline~& window)$ ModeResult
+    }
+    class MedianFactoryKline {
+        +compute(Window~Kline~& window)$ MedianResult
+    }
+    class StdDevFactoryKline {
+        +compute(Window~Kline~& window)$ StdDevResult
     }
 
     PipelineKline ..> MeanFactoryKline : utilizes
+    PipelineKline ..> ModeFactoryKline : utilizes
+    PipelineKline ..> MedianFactoryKline : utilizes
+    PipelineKline ..> StdDevFactoryKline : utilizes
 ```
 
 ### 2. Entity-Relationship Diagram (ERD)
@@ -124,12 +134,42 @@ erDiagram
         double MeanVol
     }
     
+    ModeResult {
+        uint64_t time
+        double ModeOP
+        double ModeCP
+        double ModeHP
+        double ModeLP
+        double ModeVol
+    }
+    
+    MedianResult {
+        uint64_t time
+        double MedianOP
+        double MedianCP
+        double MedianHP
+        double MedianLP
+        double MedianVol
+    }
+    
+    StdDevResult {
+        uint64_t time
+        double StdDevOP
+        double StdDevCP
+        double StdDevHP
+        double StdDevLP
+        double StdDevVol
+    }
+    
     B0 {
         string eventType
         uint64_t timestamp
     }
 
-    Kline ||--o{ MeanResult : "1 Window (8 Klines) generates 1 MeanResult"
+    Kline ||--o{ MeanResult : "1 Window generates 1 MeanResult"
+    Kline ||--o{ ModeResult : "1 Window generates 1 ModeResult"
+    Kline ||--o{ MedianResult : "1 Window generates 1 MedianResult"
+    Kline ||--o{ StdDevResult : "1 Window generates 1 StdDevResult"
 ```
 
 ### 3. Component Diagram (Ball-and-Socket)
@@ -172,7 +212,7 @@ sequenceDiagram
     participant Cache as Cache Thread
     participant State as lane_states[KLINE]
     participant Ana as Analytics Thread
-    participant Threads as 5x Math Threads
+    participant Threads as 20x Math Threads
 
     Note over State: State = 0 (Cache Turn)
     Net->>Q: push(Kline)
@@ -184,7 +224,7 @@ sequenceDiagram
     
     Note over State: State = 1 (Analytics Turn)
     State-->>Ana: Wakes up (is_allowed_analytics)
-    Ana->>Threads: Spawns tOP, tCP, tHP, tLP, tVol
+    Ana->>Threads: Spawns 4x Factories, launching 20x Math Threads
     
     Note right of Net: Cache is NOT blocked.<br/>It waits for the next network packet.
     Net->>Q: push(next Kline)
@@ -194,7 +234,7 @@ sequenceDiagram
     Cache->>State: is_allowed_to_push() -> Sets State = 2 (Gate)
     Note over State: State = 2 (Cache waiting at Gate)
     
-    Threads-->>Ana: All 5 threads join()
+    Threads-->>Ana: All 20 threads and 4 factories join()
     Ana->>State: give_permission_to_proceed() -> Sets State = 0
     Note over State: State = 0 (Cycle Repeats)
     State-->>Cache: Wakes up Cache
@@ -221,6 +261,9 @@ flowchart LR
     Q --> Route[Memory Routing]
     Route -->|Window<Kline>| Calc[Matrix Calculations]
     Calc --> MeanResult
+    Calc --> ModeResult
+    Calc --> MedianResult
+    Calc --> StdDevResult
 ```
 
 **Level 2: Multi-Lane Routing**

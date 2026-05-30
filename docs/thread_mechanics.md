@@ -138,34 +138,35 @@ classDiagram
         <<static>>
         +runPipeline(Window~Kline~)
     }
-    class MeanFactoryKline {
+    class AnalyticsFactories {
         <<static>>
-        +compute(Window~Kline~) MeanResult
+        +MeanFactoryKline, ModeFactoryKline, MedianFactoryKline, StdDevFactoryKline
     }
     class Threads {
         <<std::thread>>
-        +tOP, tCP, tHP, tLP, tVol
+        +tOP, tCP, tHP, tLP, tVol (x4)
     }
-    class MeanResult {
+    class MetricsResults {
         <<struct>>
+        +MeanResult, ModeResult, MedianResult, StdDevResult
     }
 
     IngressAnalytics --> PipelineKline : triggers
-    PipelineKline --> MeanFactoryKline : spawns thread for
-    MeanFactoryKline --> Threads : spawns 5 sub-threads
-    Threads --> MeanResult : populate fields
+    PipelineKline --> AnalyticsFactories : spawns 4 threads for
+    AnalyticsFactories --> Threads : spawns 20 sub-threads (5 each)
+    Threads --> MetricsResults : populate fields
 ```
 
 ### Concurrency Sequence (How the Threads Work)
-This is where the massive multi-threading takes place. The main Analytics thread waits for State 1. Once triggered, it launches a dedicated Factory Thread, which then launches 5 Math Sub-Threads. They all compute in parallel, join back together, and return the final struct.
+This is where the massive multi-threading takes place. The main Analytics thread waits for State 1. Once triggered, it launches 4 dedicated Factory Threads (Mean, Mode, Median, StdDev). Each of these factories then launches 5 Math Sub-Threads for parallel calculations (OP, CP, HP, LP, Vol). All 20 threads compute in parallel, join back together, and return their respective metric structs.
 
 ```mermaid
 sequenceDiagram
     participant Ana as Analytics Main Thread
     participant State as Atomic State
     participant Pipe as PipelineKline
-    participant Fact as MeanFactory Thread
-    participant Sub as 5x Math Sub-Threads (tOP...tVol)
+    participant Fact as 4x Factory Threads (Mean, Mode, Median, StdDev)
+    participant Sub as 20x Math Sub-Threads (tOP...tVol x 4)
 
     loop Infinite Loop
         Ana->>State: is_allowed_analytics()
@@ -174,20 +175,20 @@ sequenceDiagram
         Ana->>Pipe: runPipeline(window)
         activate Pipe
         
-        Pipe->>Fact: Launch std::thread(MeanFactoryKline)
+        Pipe->>Fact: Launch 4x std::thread (MeanFactory, ModeFactory, etc.)
         activate Fact
         
-        Fact->>Sub: Spawns 5x std::thread (calcMeanOP, etc.)
+        Fact->>Sub: Spawns 20x std::thread (calcMeanOP, calcModeOP, etc.)
         activate Sub
-        Note over Sub: True Parallel Execution<br/>across multiple CPU cores
+        Note over Sub: True Parallel Execution<br/>across multiple CPU cores (24 total active threads)
         
-        Sub-->>Fact: join()
+        Sub-->>Fact: join() 20 threads
         deactivate Sub
         
-        Fact-->>Pipe: returns Populated MeanResult
+        Fact-->>Pipe: returns Populated Metric Results
         deactivate Fact
         
-        Pipe-->>Ana: Factory Thread join()
+        Pipe-->>Ana: All 4 Factory Threads join()
         deactivate Pipe
         
         Ana->>State: give_permission_to_proceed()
