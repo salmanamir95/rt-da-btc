@@ -3,10 +3,10 @@
 
 
 void ModeResult::print() const {
-    std::cout << "[Analytics] ModeResult -> Time: " << time
-              << " | ModeOP: " << ModeOP
-              << " | ModeHP: " << ModeHP
-              << " | ModeLP: " << ModeLP
-              << " | ModeCP: " << ModeCP
-              << " | ModeVol: " << ModeVol << std::endl;
+    std::cout << "[Mode Analysis | Support/Resistance Clusters] Window Time: " << time
+              << " | Open: " << ModeOP
+              << " | High: " << ModeHP
+              << " | Low: " << ModeLP
+              << " | Close: " << ModeCP
+              << " | Vol: " << ModeVol << std::endl;
 }

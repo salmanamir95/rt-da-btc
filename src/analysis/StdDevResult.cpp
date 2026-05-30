@@ -2,10 +2,10 @@
 #include <iostream>
 
 void StdDevResult::print() const {
-    std::cout << "[Analytics] StdDevResult -> Time: " << time
-              << " | StdDevOP: " << StdDevOP
-              << " | StdDevHP: " << StdDevHP
-              << " | StdDevLP: " << StdDevLP
-              << " | StdDevCP: " << StdDevCP
-              << " | StdDevVol: " << StdDevVol << std::endl;
+    std::cout << "[StdDev Analysis | Market Volatility Index] Window Time: " << time
+              << " | Open: " << StdDevOP
+              << " | High: " << StdDevHP
+              << " | Low: " << StdDevLP
+              << " | Close: " << StdDevCP
+              << " | Vol: " << StdDevVol << std::endl;
 }

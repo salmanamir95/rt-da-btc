@@ -2,10 +2,10 @@
 #include <iostream>
 
 void MeanResult::print() const {
-    std::cout << "[Analytics] MeanResult -> Time: " << time
-              << " | MeanOP: " << MeanOP
-              << " | MeanHP: " << MeanHP
-              << " | MeanLP: " << MeanLP
-              << " | MeanCP: " << MeanCP
-              << " | MeanVol: " << MeanVol << std::endl;
+    std::cout << "[Mean Analysis | Moving Average Trend] Window Time: " << time
+              << " | Open: " << MeanOP
+              << " | High: " << MeanHP
+              << " | Low: " << MeanLP
+              << " | Close: " << MeanCP
+              << " | Vol: " << MeanVol << std::endl;
 }

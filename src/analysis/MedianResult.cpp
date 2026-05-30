@@ -2,10 +2,10 @@
 #include <iostream>
 
 void MedianResult::print() const {
-    std::cout << "[Analytics] MedianResult -> Time: " << time
-              << " | MedianOP: " << MedianOP
-              << " | MedianHP: " << MedianHP
-              << " | MedianLP: " << MedianLP
-              << " | MedianCP: " << MedianCP
-              << " | MedianVol: " << MedianVol << std::endl;
+    std::cout << "[Median Analysis | Outlier-Resistant Midpoint] Window Time: " << time
+              << " | Open: " << MedianOP
+              << " | High: " << MedianHP
+              << " | Low: " << MedianLP
+              << " | Close: " << MedianCP
+              << " | Vol: " << MedianVol << std::endl;
 }
