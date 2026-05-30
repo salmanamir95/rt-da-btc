@@ -46,7 +46,21 @@ void run_ingestor(std::string url, EventQueue& queue)
 
                     // 3. Push it directly to the Queue!
                     if (event) {
-                        queue.push(std::move(event));
+                        if (event->type_id == EventID::KLINE) {
+                            Kline* kline = static_cast<Kline*>(event.get());
+                            if (kline ->isClosed) {
+                                queue.push(std::move(event));
+                                //std::cout<<"[Kline:Ingestor] Event Added (Closed)"<<std::endl;
+                            }
+                            else {
+                                // TODO: Implement snapshot queue
+                                //std::cout<<"[Kline:Ingestor] Event Not Added (Not Closed)" <<std::endl;
+                            }
+                            
+                        }
+                        else{
+                            queue.push(std::move(event));
+                        }
                     }
                     
                 }
